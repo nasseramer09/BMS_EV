@@ -4,6 +4,7 @@
 {% endblock %}
 {% block body%}
    <ul>
+
    <li>Simuleringstid time: <span id="sim-hour">{{ data['sim_time_hour'] }}</span></li>
    <li>Simuleringstid minut: <span id="sim-minute">{{ data['sim_time_min'] }}</span></li>
 
@@ -15,6 +16,7 @@
     const socket = io();
     //listens for updates from the server side
     socket.on('update_time', (data)=>{
+
         document.getElementById("sim-hour").textContent=data.sim_time_hour;
         document.getElementById("sim-minute").textContent=data.sim_time_min;
 
