@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <h1> Price per hour </h1>
+	 <table border="1">
+       <thead>
+       <tr>
+        <th>Hour</th>
+        <th>Price (öre/kwh) </th>
+        </tr>
+       </thead>
+     <tbody>
+    {% for price in data %}
+        <tr>
+        <td>{{ loop.index0 }}:0</td>
+        <td>{{ price }}</td>
+        </tr>
+
+
+{% endfor %}
+</tbody>
+
+
+
+
+    </table>
+{% endblock %}

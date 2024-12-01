@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block main %}
+	<h1> Info </h1>
+{% endblock %}
+{% block body%}
+   <ul>
+   <li>Simuleringstid time: <span id="sim-hour">{{ data['sim_time_hour'] }}</span></li>
+   <li>Simuleringstid minut: <span id="sim-minute">{{ data['sim_time_min'] }}</span></li>
+
+   </ul>
+
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
+    //connects to the socket server
+    const socket = io();
+    //listens for updates from the server side
+    socket.on('update_time', (data)=>{
+        document.getElementById("sim-hour").textContent=data.sim_time_hour;
+        document.getElementById("sim-minute").textContent=data.sim_time_min;
+
+    })
+    </script>
+{% endblock %}
