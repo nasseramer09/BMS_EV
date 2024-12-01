@@ -16,7 +16,6 @@
     const socket = io();
     //listens for updates from the server side
     socket.on('update_time', (data)=>{
-
         document.getElementById("sim-hour").textContent=data.sim_time_hour;
         document.getElementById("sim-minute").textContent=data.sim_time_min;
 
