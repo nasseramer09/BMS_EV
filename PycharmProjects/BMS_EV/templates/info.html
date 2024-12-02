@@ -7,6 +7,8 @@
 
    <li>Simuleringstid time: <span id="sim-hour">{{ data['sim_time_hour'] }}</span></li>
    <li>Simuleringstid minut: <span id="sim-minute">{{ data['sim_time_min'] }}</span></li>
+   <li>Hushållets energiförbrukning: <span id="current-load">{{ data['base_current_load'] }}</span>kWh</li>
+   <li>EV laddningsstatus: <span id="battery-capacity">{{ data['battery_capacity_kWh'] }}</span>kWh</li>
 
    </ul>
 
@@ -18,6 +20,8 @@
     socket.on('update_time', (data)=>{
         document.getElementById("sim-hour").textContent=data.sim_time_hour;
         document.getElementById("sim-minute").textContent=data.sim_time_min;
+        document.getElementById("current-load").textContent=data.base_current_load;
+        document.getElementById("battery-capacity").textContent=data.battery_capacity_kWh;
 
     })
     </script>

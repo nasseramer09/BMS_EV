@@ -1,7 +1,7 @@
 import time
-from http.client import responses
 from threading import Thread
 from urllib import request
+
 from flask_socketio import SocketIO
 
 import requests
@@ -20,26 +20,54 @@ def connection_handler():
             data = response.json()
             socketio.emit('update_time',
                           {'sim_time_hour':data['sim_time_hour'],
-                                 'sim_time_min':data['sim_time_min']
+                                 'sim_time_min':data['sim_time_min'],
+                                    'base_current_load':data['base_current_load'],
+                                    'battery_capacity_kWh':data['battery_capacity_kWh'],
                                       })
 @app.route('/')
 def home_page():  # put application's code here
 
     responses = requests.get(url)
-    data = responses.json()
-    return render_template("home.html", data=data)
+    if responses.status_code == 200:
+        data = responses.json()
+        return render_template("home.html", data=data)
 
 @app.route('/info')
 def info():
+
     responses = requests.get(f"{url}/info")
-    data = responses.json()
-    return render_template("info.html", data=data )
+    if responses.status_code == 200:
+        data = responses.json()
+        return render_template("info.html", data=data )
 
 @app.route('/priceperhour')
 def priceperhour():
     responses = requests.get(f"{url}/priceperhour")
-    data = responses.json()
-    return render_template("priceperhour.html", data=data)
+    if responses.status_code==200:
+        data = responses.json()
+        return render_template("priceperhour.html", data=data)
+
+@app.route('/baseload')
+def baseload():
+    responses = requests.get(f"{url}/baseload")
+    if responses.status_code==200:
+        data = responses.json()
+        return render_template("baseload.html", data=data)
+
+@app.route('/batteryStatus', methods=['GET'])
+def batteryStatus():
+    responses = requests.get(f"{url}/info")
+    if responses.status_code == 200:
+        data = responses.json()
+        return render_template("evBatteryStatus.html", data=data)
+
+@app.route('/charging_handle', methods=['POST'])
+def charging_handle():
+    isCharging = request.json.get('charging')
+    responses = requests.post(f"{url}/charge", json={"charging": isCharging})
+    if responses.status_code == 200:
+        return responses.json(), 200
+    return 'fail to toggle charging', 500
 
 
 if __name__ == '__main__':
