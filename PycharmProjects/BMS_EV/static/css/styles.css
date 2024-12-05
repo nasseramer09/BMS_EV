@@ -52,3 +52,41 @@ th, td {
 th {
     background-color: #f2f2f2;
 }
+
+    #toggle-button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .charging-on {
+        background-color: green;
+    }
+
+    .charging-off {
+        background-color: red;
+    }
+
+    #toggle-button:hover {
+        opacity: 0.8;
+    }
+    .discharge-button{
+        background-color: red;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+
+    }
+
+     .discharge-button:hover{
+        background-color: red;
+
+
+    }
+
+
